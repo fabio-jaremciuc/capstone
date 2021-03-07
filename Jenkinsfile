@@ -37,7 +37,7 @@ pipeline {
             stage('Deploy') {
                 steps {
                     echo 'Deploying...'
-                    sh 'aws eks --region us-west-1 update-kubeconfig --name capstone'
+                    sh 'aws eks --region us-east-2 update-kubeconfig --name capstone'
                     sh 'kubectl apply -f deploy/deployment.yml'
                     sh 'kubectl get all'
                 }
@@ -51,7 +51,7 @@ pipeline {
 
         }
         environment {
-            registry = 'twi5tyx/capstone'
+            registry = 'fabioj/capstone'
             registryCredential = 'dockerhub'
             dockerImage = ''
         }
