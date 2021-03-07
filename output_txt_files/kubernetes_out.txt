@@ -1,0 +1,11 @@
+NAME       STATUS   ROLES                  AGE   VERSION
+minikube   Ready    control-plane,master   22h   v1.20.2
+Error from server (AlreadyExists): pods "ml-microservice" already exists
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+ml-microservice   1/1     1            1           22h
+NAME                              READY   STATUS    RESTARTS   AGE
+ml-microservice                   1/1     Running   2          21h
+ml-microservice-59cc4f7d8-mlgb7   1/1     Running   4          22h
+Forwarding from 127.0.0.1:8000 -> 80
+Forwarding from [::1]:8000 -> 80
+Handling connection for 8000
