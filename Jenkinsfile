@@ -1,23 +1,38 @@
 pipeline {
-    agent any
-        stages {
-            stage('Setup Environment') {
-                steps {
+     agent any
+     stages {
+         stage('Setup Environment') {
+              steps {
                     echo 'Setting Up Environment...'
-                    
-                }
-            }
-            stage('Deploy') {
-                steps {
-                    echo 'Deploying...'
-                    sh 'eksctl create cluster --name capstone --version 1.17'
-                    sh 'kubectl get all'
-                }
-            }
+                    sh '''make setup
+                          make install
+                    '''
+              }
+         }
+         stage('Lint') {
+              steps {
+                    echo 'Linting...'
+                    sh 'make lint'
+              }
+         }
+         stage('Build Docker Image') {
+              steps {
+                  sh 'docker build -t capstone .'
+              }
+         }
+         stage('Push Docker Image') {
+              steps {
+                  withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
+                      sh 'docker tag fabioj/capstone-project-1'
+                      sh 'docker push fabioj/capstone-project-1'
+                  }
+              }
+         }
+        stage("Cleaning up") {
+              steps{
+                    echo 'Cleaning up...'
+                    sh "docker system prune"
+              }
         }
-        environment {
-            registry = 'twi5tyx/capstone'
-            registryCredential = 'dockerhub'
-            dockerImage = ''
-        }
+     }
 }
