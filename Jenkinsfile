@@ -3,7 +3,7 @@ pipeline {
      stages {
          stage('Build Docker Image') {
               steps {
-                  sh 'docker build -t capstone .'
+                  sh 'docker build -t capstone-project-1 .'
               }
          }
          stage('Push Docker Image') {
