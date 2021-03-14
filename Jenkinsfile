@@ -3,14 +3,14 @@ pipeline {
      stages {
          stage('Build Docker Image') {
               steps {
-                  sh 'docker build -t capstone-project-1 .'
+                  sh 'docker build -t capstone-project-2 .'
               }
          }
          stage('Push Docker Image') {
               steps {
                   withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
-                      sh 'docker tag fabioj/capstone-project-1:latest'
-                      sh 'docker push fabioj/capstone-project-1:latest'
+                      sh 'docker tag fabioj/capstone-project-2:latest'
+                      sh 'docker push fabioj/capstone-project-2:latest'
                   }
               }
          }
