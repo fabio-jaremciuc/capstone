@@ -1,22 +1,25 @@
 pipeline {
   agent any
      stages {
+         stage('Lint') {
+              steps {
+                  sh 'hadolint Dockerfile'
+              }
+          }
          stage('Build Docker Image') {
               steps {
-                  sh 'docker build -t capstone-project .'
+                  sh "docker build -t fabioj/capstone-project:${env.BUILD_NUMBER} ."
               }
          }
          stage('Push Docker Image') {
               steps {
                   withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
-                      sh 'docker tag capstone-project fabioj/capstone-project:latest'
-                      sh 'docker push fabioj/capstone-project:latest'
+                      sh "docker push fabioj/capstone-project:${env.BUILD_NUMBER}"
                   }
               }
          }
        stage('Creates eks cluster') {
               steps{
-                  echo 'Creating eks cluster...'
                   withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
                       sh 'eksctl create cluster --region us-east-2 --name capstone-project --nodes-min 2 --nodes-max 2 --node-type t2.micro'
                       echo 'Cluster created!'
