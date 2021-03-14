@@ -18,16 +18,16 @@ pipeline {
               steps{
                   echo 'Deploying to AWS...'
                   withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
-                      sh "aws eks --region us-east-2 update-kubeconfig --name capstone-project'
-                      sh "kubectl apply -f deployment.yml'
-                      sh "kubectl get all'
+                      sh 'aws eks --region us-east-2 update-kubeconfig --name capstone-project'
+                      sh 'kubectl apply -f deployment.yml'
+                      sh 'kubectl get all'
                   }
               }
         }
         stage("Cleaning up") {
               steps{
                     echo 'Cleaning up...'
-                    sh "docker system prune"
+                    sh 'docker system prune'
               }
         }
      }
