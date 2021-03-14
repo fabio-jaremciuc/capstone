@@ -1,19 +1,6 @@
 pipeline {
   agent any
      stages {
-         stage('Setup Environment') {
-              steps {
-                    echo 'Setting Up Environment...'
-                    sh "make setup"
-                    sh 'make install'
-              }
-         }
-         stage('Lint') {
-              steps {
-                    echo 'Linting...'
-                    sh "make lint"
-              }
-         }
          stage('Build Docker Image') {
               steps {
                   sh 'docker build -t capstone .'
