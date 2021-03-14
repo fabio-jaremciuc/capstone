@@ -9,8 +9,8 @@ pipeline {
          stage('Push Docker Image') {
               steps {
                   withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
-                      sh 'docker tag fabioj/capstone-project-1'
-                      sh 'docker push fabioj/capstone-project-1'
+                      sh 'docker tag fabioj/capstone-project-1:latest'
+                      sh 'docker push fabioj/capstone-project-1:latest'
                   }
               }
          }
