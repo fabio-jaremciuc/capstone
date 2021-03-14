@@ -4,15 +4,14 @@ pipeline {
          stage('Setup Environment') {
               steps {
                     echo 'Setting Up Environment...'
-                    sh '''make setup
-                          make install
-                    '''
+                    sh "make setup"
+                    sh 'make install'
               }
          }
          stage('Lint') {
               steps {
                     echo 'Linting...'
-                    sh 'make lint'
+                    sh "make lint"
               }
          }
          stage('Build Docker Image') {
