@@ -12,6 +12,7 @@ pipeline {
          stage('Lint') {
               steps {
                     echo 'Linting...'
+                    echo 'Linting...'
                     sh "make lint"
               }
          }
