@@ -4,6 +4,7 @@ pipeline {
          stage('Setup Environment') {
               steps {
                     echo 'Setting Up Environment...'
+                    sh "sudo apt-get install build-essential"
                     sh "make setup"
                     sh 'make install'
               }
