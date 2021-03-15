@@ -8,13 +8,13 @@ pipeline {
           }
          stage('Build Docker Image') {
               steps {
-                  sh "docker build -t fabioj/capstone-project:${env.BUILD_NUMBER} ."
+                  sh "docker build -t fabioj/capstone-project:latest ."
               }
          }
          stage('Push Docker Image') {
               steps {
                   withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
-                      sh "docker push fabioj/capstone-project:${env.BUILD_NUMBER}"
+                      sh "docker push fabioj/capstone-project:latest"
                   }
               }
          }
