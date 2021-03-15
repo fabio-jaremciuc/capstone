@@ -25,7 +25,7 @@ pipeline {
                       sh 'aws eks --region us-east-2 update-kubeconfig --name capstone-project'
                       sh 'kubectl apply -f deployment.yml'
                       sh 'kubectl get all'
-                      sh 'kubectl set image deployment/capstone-project fabioj=fabioj/capstone-project:${env.BUILD_NUMBER} --record'
+                      sh 'kubectl set image deployment/capstone-project capstone-project=fabioj/capstone-project:${env.BUILD_NUMBER} --record'
                       sh 'kubectl rollout status deployment/capstone-project'
                   }
               }
