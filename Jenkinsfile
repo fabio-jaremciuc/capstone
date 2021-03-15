@@ -18,14 +18,6 @@ pipeline {
                   }
               }
          }
-       stage('Creates eks cluster') {
-              steps{
-                  withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
-                      sh 'eksctl create cluster --region us-east-2 --name capstone-project --nodes-min 2 --nodes-max 2 --node-type t2.micro'
-                      echo 'Cluster created!'
-                  }
-              }
-        }
         stage('Deploying') {
               steps{
                   echo 'Deploying to AWS...'
@@ -33,6 +25,8 @@ pipeline {
                       sh 'aws eks --region us-east-2 update-kubeconfig --name capstone-project'
                       sh 'kubectl apply -f deployment.yml'
                       sh 'kubectl get all'
+                      sh 'kubectl set image deployment/capstone-project fabioj=fabioj/ml-microservice:${env.BUILD_NUMBER} --record'
+                      sh 'kubectl rollout status deployment/capstone-project'
                   }
               }
         }
