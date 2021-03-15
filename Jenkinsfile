@@ -24,7 +24,9 @@ pipeline {
                   withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
                       sh 'aws eks --region us-east-2 update-kubeconfig --name capstone-project'
                       sh 'kubectl apply -f deployment.yml'
-                      sh 'kubectl get all'
+                      sh 'kubectl get nodes'
+                      sh 'kubectl set image deployment/capstone-project capstone-project=fabioj/capstone-project:latest --record'
+                      sh 'kubectl rollout status deployment/capstone-project'
                   }
               }
         }
