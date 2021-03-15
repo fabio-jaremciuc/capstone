@@ -22,11 +22,10 @@ pipeline {
               steps{
                   echo 'Deploying to AWS...'
                   withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
-                      sh 'aws eks --region us-east-2 update-kubeconfig --name capstone-project'
-                      sh 'kubectl apply -f deployment.yml'
-                      sh 'kubectl get nodes'
-                      sh 'kubectl set image deployment/capstone-project capstone-project=fabioj/capstone-project:latest --record'
-                      sh 'kubectl rollout status deployment/capstone-project'
+                    sh 'aws eks --region us-east-2 update-kubeconfig --name capstone-project'
+                    sh 'kubectl apply -f deployment.yml'
+                    sh 'kubectl rollout status deployment/capstone-project'  
+                    sh 'kubectl get nodes'
                   }
               }
         }
